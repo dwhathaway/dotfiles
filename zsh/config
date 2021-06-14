@@ -35,6 +35,9 @@ export PATH="$HOME/bin:$HOME/.bin:/usr/local/bin:/usr/local/bin:/usr/local/sbin:
 export PATH="$PATH:$HOME/Library/Python/2.7/bin"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 export PATH="$PATH:$HOME/.dotnet:$HOME/.dotnet/tools"
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 fpath=(~/.zsh/functions $fpath)
 
@@ -87,7 +90,7 @@ cat << "EOF"
       .MMMMMMMMMM                           MMMMMMMMMM.               
       MMMMMMMMM"                             "MMMMMMMMM               
       MMMMMMMMM          Welcome back,        MMMMMMMMM               
-      MMMMMMMMM            @ethanis           MMMMMMMMM               
+      MMMMMMMMM            @dwhathaway        MMMMMMMMM               
       MMMMMMMMMM                             MMMMMMMMMM               
       `MMMMMMMMMM                           MMMMMMMMMM`               
        MMMMMMMMMMMM.                     .MMMMMMMMMMMM                
