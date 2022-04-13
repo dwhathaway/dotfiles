@@ -38,6 +38,8 @@ export PATH="$PATH:$HOME/.dotnet:$HOME/.dotnet/tools"
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
 
 fpath=(~/.zsh/functions $fpath)
 
