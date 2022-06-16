@@ -62,6 +62,9 @@ def install_homebrew_utils
 
   puts "Installing zsh-history-substring-search"
   system('brew install zsh-history-substring-search', out: STDOUT) unless File.exist?("/usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh")
+
+  puts "Installing starship"
+  system('brew install starship') unless command_found?("starship")
 end
 
 def install_node
@@ -73,8 +76,7 @@ def install_node
 end
 
 def install_npm_packages
-  puts "Installing spaceship-prompt"
-  system('npm install -g spaceship-prompt', out: STDOUT) unless command_found?("node")
+  puts "No packages to install.."
 end
 
 def install_gems
