@@ -69,7 +69,7 @@ end
 
 def install_node
   puts "Installing nvm"
-  system('curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash', out: STDOUT) unless File.exist?("/Users/ethanis/.nvm/nvm.sh")
+  system('curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash', out: STDOUT) unless File.exist?("/Users/dwhathaway/.nvm/nvm.sh")
 
   puts "Installing node"
   system('nvm install node', out: STDOUT) unless command_found?("node")
