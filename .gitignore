@@ -2,3 +2,5 @@
 vim/bundle/
 .DS_Store
 *~
+*.zip
+*.tar

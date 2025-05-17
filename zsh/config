@@ -39,6 +39,9 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
+export PATH=$HOME/development/flutter/bin:$PATH
+export JAVA_HOME="$HOME/OpenJDK/jdk-19.0.1.jdk/Contents/Home"
+export STARSHIP_CONFIG="~/.dotfiles/starship/config.toml"
 
 fpath=(~/.zsh/functions $fpath)
 

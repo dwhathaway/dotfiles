@@ -38,16 +38,23 @@ end
 def install_utilities
   install_homebrew
   install_homebrew_utils
-  install_node
+  install_ruby("3.4.3")
+  install_node("0.40.3")
   install_npm_packages
   install_gems
   install_dotnet
+  install_flutter("3.29.3")
+  install_terraform()
 end
 
 def install_homebrew
   puts "Installing homebrew"
 
-  system('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"', out: STDOUT) unless command_found?("brew")
+  if command_found?("brew")
+    system('brew update && brew upgrade', out: STDOUT)
+  else
+    system('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"', out: STDOUT) unless command_found?("brew")
+  end
 end
 
 def install_homebrew_utils
@@ -65,11 +72,73 @@ def install_homebrew_utils
 
   puts "Installing starship"
   system('brew install starship') unless command_found?("starship")
+
+  puts "Installing Golang"
+  system('brew install go') unless command_found?("go")
+
+  puts "Installing azure-cli"
+  system('brew install azure-cli') unless command_found?("az")
+
+  puts "Installing gh-cli"
+  system('brew install gh') unless command_found?("gh")
+
+  puts "Installing openssl@3"
+  system('brew install openssl@3', out: STDOUT) unless command_found?("openssl")
+
+  puts "Installing firebase cli"
+  system('brew install firebase-cli', out: STDOUT) unless command_found?("firebase")
+
+  puts "Instsalling tfenv"
+  system('brew install tfenv', out: STDOUT) unless command_found?("tfenv")
+
+  puts "Installing Nerdfonts"
+  system('brew tap homebrew/cask-fonts', out: STDOUT)
+  system('brew install --cask font-fira-code-nerd-font', out:STDOUT)
 end
 
-def install_node
+def install_ruby(ruby_version)
+  openssl_prefix = `brew --prefix openssl@3`.strip
+
+  env = {
+    "LDFLAGS" => "-L#{openssl_prefix}/lib",
+    "CPPFLAGS" => "-I#{openssl_prefix}/include",
+    "PKG_CONFIG_PATH" => "#{openssl_prefix}/lib/pkgconfig",
+    "RUBY_CONFIGURE_OPTS" => "--with-openssl-dir=#{openssl_prefix}"
+  }
+  
+  puts "Installing Ruby #{ruby_version}"
+  success = system(env, "rbenv install -f #{ruby_version}", out: STDOUT)
+  if success
+    system("rbenv global #{ruby_version}")
+    system("rbenv rehash")
+    puts "Ruby #{ruby_version} installed and set as global version."
+  else
+    abort "Ruby installation failed."
+  end
+end
+
+def install_terraform(version="latest")
+  puts "Installing #{version} Terraform"
+  success = system("tfenv install #{version}", out: STDOUT)
+  if success
+    system("tfenv use #{version}")
+  else
+    abort "Terraform installation failed."
+  end
+end
+
+def install_flutter(version)
+  flutter_tar = "flutter_macos_#{version}-stable.zip"
+
+  puts "Installing flutter"
+  system("curl -o #{flutter_tar} https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/#{flutter_tar}", out: STDOUT) unless command_found?("flutter")
+
+  system("unzip #{flutter_tar} -d ~/development/", out: STDOUT) unless command_found?("flutter")
+end
+
+def install_node(version)
   puts "Installing nvm"
-  system('curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash', out: STDOUT) unless File.exist?("/Users/dwhathaway/.nvm/nvm.sh")
+  system("curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v#{version}/install.sh | bash", out: STDOUT) unless File.exist?("/Users/dwhathaway/.nvm/nvm.sh")
 
   puts "Installing node"
   system('nvm install node', out: STDOUT) unless command_found?("node")
@@ -82,6 +151,9 @@ end
 def install_gems
   puts "Installing colorls"
   system('gem install colorls', out: STDOUT) unless command_found?("colorls")
+
+  puts "Installing cocoapods"
+  system('gem install cocoapods', out: STDOUT) unless command_found?("cocoapods")
 end
 
 def install_dotnet
