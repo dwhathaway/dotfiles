@@ -38,13 +38,14 @@ end
 def install_utilities
   install_homebrew
   install_homebrew_utils
-  install_ruby("3.4.3")
+  install_ruby("3.4.6")
   install_node("0.40.3")
   install_npm_packages
   install_gems
   install_dotnet
-  install_flutter("3.29.3")
+  install_flutter("3.35.4")
   install_terraform()
+  install_omz
 end
 
 def install_homebrew
@@ -88,12 +89,14 @@ def install_homebrew_utils
   puts "Installing firebase cli"
   system('brew install firebase-cli', out: STDOUT) unless command_found?("firebase")
 
-  puts "Instsalling tfenv"
+  puts "Installing tfenv"
   system('brew install tfenv', out: STDOUT) unless command_found?("tfenv")
 
   puts "Installing Nerdfonts"
-  system('brew tap homebrew/cask-fonts', out: STDOUT)
   system('brew install --cask font-fira-code-nerd-font', out:STDOUT)
+
+  puts "Installing OpenJDK"
+  system('brew install openjdk')
 end
 
 def install_ruby(ruby_version)
@@ -128,7 +131,7 @@ def install_terraform(version="latest")
 end
 
 def install_flutter(version)
-  flutter_tar = "flutter_macos_#{version}-stable.zip"
+  flutter_tar = "flutter_macos_arm64_#{version}-stable.zip"
 
   puts "Installing flutter"
   system("curl -o #{flutter_tar} https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/#{flutter_tar}", out: STDOUT) unless command_found?("flutter")
@@ -160,6 +163,11 @@ def install_dotnet
   puts "Installing dotnet sdk"
   # installs LTS by default
   system('curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin', out: STDOUT) unless command_found?("dotnet")
+end
+
+def install_omz
+  puts "Installing oh my zsh"
+  system('sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
 end
 
 def command_found?(command)

@@ -21,10 +21,10 @@ precmd() {
 fi
 
 # enable syntax highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # enable zsh fuzzy history search
-source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # use colorls for colorizing ls
 source $(dirname $(gem which colorls))/tab_complete.sh
@@ -40,7 +40,8 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 export PATH=$HOME/development/flutter/bin:$PATH
-export JAVA_HOME="$HOME/OpenJDK/jdk-19.0.1.jdk/Contents/Home"
+export JAVA_HOME="/opt/homebrew/opt/openjdk"
+export PATH="$JAVA_HOME/bin:$PATH"
 export STARSHIP_CONFIG="~/.dotfiles/starship/config.toml"
 
 fpath=(~/.zsh/functions $fpath)
