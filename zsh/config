@@ -43,6 +43,7 @@ export PATH=$HOME/development/flutter/bin:$PATH
 export JAVA_HOME="/opt/homebrew/opt/openjdk"
 export PATH="$JAVA_HOME/bin:$PATH"
 export STARSHIP_CONFIG="~/.dotfiles/starship/config.toml"
+export PATH="$PATH:~/.lmstudio/bin"
 
 fpath=(~/.zsh/functions $fpath)
 
